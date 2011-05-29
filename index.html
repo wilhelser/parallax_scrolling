@@ -1,0 +1,79 @@
+<html>
+	<head>
+		<title>Parallax Scrolling Example</title>
+		<link rel="stylesheet" href="stylesheets/style.css" type="text/css" media="screen" charset="utf-8" />
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			// Check if browser support multiple backgrounds.
+			function multipleBgTest(){
+			  var el_style = document.createElement("div").style;
+	      el_style.cssText = 'background:url(//:),url(//:),red url(//:)';
+
+	      // If the UA supports multiple backgrounds, there should be three occurrences
+	      // of the string "url(" in the return value for el_style.background
+	      return new RegExp("(url\\s*\\(.*?){3}").test(el_style.background);
+	    }
+	    var multipleBg = multipleBgTest();
+			
+			// Check if Mobile Safari.
+			var userAgent = window.navigator.userAgent;
+			var isMobileSafari = false;
+			if(userAgent.match(/iPad/i) || userAgent.match(/iPhone/i) || userAgent.match(/iPod/i)) {
+				isMobileSafari = true;
+			}
+			
+			$(function(){
+				// Add Lorem ipsum text to the #wrapper.
+				for(var i = 0; i < 100; i++) {
+					$("#wrapper").append("<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>");
+				}
+				
+				// If the browser supports multiple backgrounds.
+				if(multipleBg) {
+					
+					// If the browser isn't Mobile Safari.
+	      	if(!isMobileSafari) {
+		
+						// Add scroll event. Change the background-position based on how far you've scrolled.
+						$(window).scroll(function(){
+			        var top = $(this).scrollTop();
+			        var flowers = 600 - (top * 0.4);
+					    var clouds = 200 - (top * 0.2);
+			        $("#backgrounds").css({ backgroundPosition: "50px " + flowers + "px, 20px " + clouds + "px" });
+			      });
+					
+					// If the browser is Mobile Safari (iPhone, iPod or iPad).
+					} else {
+						$("#backgrounds").css({ position: "absolute", height: "2000px" });
+					}
+					
+				// If Browser doesn't support multiple backgrounds.
+				} else {
+					// Append extra <div>'s to #backgrounds.
+					$("#backgrounds").append('<div id="flowers_nocss3"></div><div id="clouds_nocss3"></div>');
+					
+					// Add specific CSS to the document.
+					if(document.createStyleSheet) {
+						document.createStyleSheet("stylesheets/no-css3.css");
+			    } else {
+			      $("head").append('<link rel="stylesheet" href="stylesheets/no-css3.css" type="text/css" />');
+			    }
+					
+					// Add scroll event and change the position of the elements based on how far you've scrolled.
+					// Warning: older browser may not handle this.
+					$(window).scroll(function(){
+						var top = $(this).scrollTop();
+			    	var flowers = 600 - (top * 0.4);
+			    	var clouds = 200 - (top * 0.2);
+			    	$("#flowers_nocss3").css({ backgroundPosition: "50px " + flowers + "px" });
+			    	$("#clouds_nocss3").css({ backgroundPosition: "20px " + clouds + "px" });
+			    });
+				}
+			});
+		</script>
+	</head>
+	<body>
+		<div id="backgrounds"></div>
+		<div id="wrapper"></div>
+	</body>
+</html>

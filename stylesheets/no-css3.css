@@ -1,0 +1,21 @@
+#backgrounds {
+	background: none;
+}
+#flowers_nocss3 {
+	position: fixed; 
+	left: 0; top: 0;
+	width: 100%; height: 100%;
+	background-image: url("../images/flower.png");
+	background-position: 50px 600px;
+	background-attachment: fixed;
+	background-repeat: repeat-y;
+}
+#clouds_nocss3 {
+	position: fixed; 
+	left: 0; top: 0;
+	width: 100%; height: 100%;
+	background-image: url("../images/cloud.png");
+	background-position: 20px 200px;
+	background-attachment: fixed;
+	background-repeat: repeat-x;
+}
