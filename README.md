@@ -1,0 +1,1 @@
+Simple example on how to add parallax scrolling to your website using jQuery. See the source code for more information.
